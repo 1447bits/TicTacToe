@@ -7,12 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
     <title>TicTacToe</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.png">
 </head>
 
 <body>
     <div class="main" id="main">
         <h1 id="website-title">TicTacToe</h1>
         <h4>Currently its 2 player <br>In Other words i was too lazy to train the model</h4>
+        <span id="turnDisplay">
+            <p id="Player-1-text">Player 1</p>
+            <p id="Player-2-text">Player 2</p>
+        </span>
         <div id="main-box">
             <div id="11" class="box" onclick="move(this)" data-id="11"></div>
             <div id="12" class="box" onclick="move(this)" data-id="12"></div>
