@@ -68,7 +68,7 @@ const move = (box) => {
 
     if (box.style["background-color"] === "white") {
         if (moveNo % 2 === 0) {
-            box.style["background-color"] = "#87b7eb";
+            box.style["background-color"] = "#55cbcd";
             user1moves.push(box.dataset.id)
 
             moveNo += 1
@@ -78,7 +78,7 @@ const move = (box) => {
             P2txt.style["background-color"] = " #ffe5b4 "
 
         } else {
-            box.style["background-color"] = "#ffaf12";
+            box.style["background-color"] = "#FFC8A2";
             user2moves.push(box.dataset.id)
 
             moveNo += 1
@@ -101,12 +101,12 @@ const move = (box) => {
         disableClick()
 
         if (win1) {
-            mainContainer.style["background-color"] = "#89d1ff";
+            mainContainer.style["background-color"] = "#55cbcd";
             P2txt.style.display = "none"
             P1txt.style.transform = "scale(2)";
             P1txt.style.background = "transparent";
         } else if (win2) {
-            mainContainer.style["background-color"] = "#ffc960";
+            mainContainer.style["background-color"] = "#FFC8A2";
             P1txt.style.display = "none"
             P2txt.style.transform = "scale(2)";
             P2txt.style.background = "transparent";
@@ -131,7 +131,7 @@ const move = (box) => {
         setTimeout(() => {
             reset(grid)
             enableClick()
-            mainContainer.style["background-color"] = "transparent";
+            mainContainer.style["background-color"] = "#ffffff";
             P1txt.style.display = "flex"
             P2txt.style.display = "flex"
             P1txt.style.transform = "scale(1)"
