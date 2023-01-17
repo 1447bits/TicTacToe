@@ -19,6 +19,7 @@ const P2txt = document.getElementById("Player-2-text")
 const grid = [a11, a12, a13, a21, a22, a23, a31, a32, a33]
 const user1moves = []
 const user2moves = []
+let userclick = true
 
 // enable and disable click functions
 function enableClick() {
@@ -76,14 +77,12 @@ document.getElementById("DP").addEventListener("click", () => {
     changePlayMode(2)
 })
 // initially game starts in 2 player
-document.getElementById("DP").click()
+document.getElementById("SP").click()
 
 // initialise each box in grid
 reset(grid)
 
 P1txt.style["background-color"] = " #d9effd "
-// P1txt.style["background-color"] = " #d9effd "
-// P2txt.style["background-color"] = " #ffe5b4 "
 
 // click event for each box in grid
 // we will modify play function according to our playmode 1p or 2p
@@ -97,43 +96,46 @@ for (box of boxes) {
 
 function changePlayMode(playMode) {
 
+    // double player
     if (playMode == 2) {
+        let moveNo = 2
+
         play = (pos) => {
             if (pos.style["background-color"] === "white") {
                 if (moveNo % 2 === 0) {
                     pos.style["background-color"] = "#87b7eb";
                     user1moves.push(pos.dataset.id)
-        
+
                     moveNo += 1
-        
+
                     // switch player move display
                     P1txt.style["background-color"] = " #ffffff "
                     P2txt.style["background-color"] = " #ffe5b4 "
-        
+
                 } else {
                     pos.style["background-color"] = "#ffaf12";
                     user2moves.push(pos.dataset.id)
-        
+
                     moveNo += 1
-        
+
                     // switch player move display
                     P1txt.style["background-color"] = " #d9effd "
                     P2txt.style["background-color"] = " #ffffff "
                 }
             }
-        
+
             // // play undo condition (🤫 its cheating) 
             // else {
             //     box.style["background-color"] = "white";
             // }
-        
+
             win1 = checkWin(user1moves)
             win2 = checkWin(user2moves)
-            win = user1moves.length + user2moves.length === 9
-            if (win1 || win2 || win) {
-        
+            Tie = user1moves.length + user2moves.length === 9
+            if (win1 || win2 || Tie) {
+
                 disableClick()
-        
+
                 // display winner
                 if (win1) {
                     mainContainer.style["background-color"] = "#89d1ff";
@@ -145,13 +147,13 @@ function changePlayMode(playMode) {
                     P1txt.style.display = "none"
                     P2txt.style.transform = "scale(2)";
                     P2txt.style.background = "transparent";
-        
+
                 } else {
                     mainContainer.style["background-color"] = "#EBEBEB";
                     P1txt.style.display = "none"
                     P2txt.style.display = "none"
                 }
-        
+
                 // resetTimer countDown
                 let i = 0
                 setInterval(() => {
@@ -161,7 +163,7 @@ function changePlayMode(playMode) {
                     }
                     resettimer.innerHTML = (3 - i) + " s"
                 }, 980)
-        
+
                 // add delay to reset
                 setTimeout(() => {
                     reset(grid)
@@ -171,29 +173,111 @@ function changePlayMode(playMode) {
                     P2txt.style.display = "flex"
                     P1txt.style.transform = "scale(1)"
                     P2txt.style.transform = "scale(1)"
-        
-        
+
+
                 }, 3000)
-        
+
                 // empty usermoves arrays
                 user1moves.length = 0
                 user2moves.length = 0
             }
         }
-        console.log("playmode 2")
     }
 
+    // single player
     else if (playMode == 1) {
         reset(grid)
         user1moves.length = 0
         user2moves.length = 0
-        var availmoves = [...grid]
-        play = (pos) => {
-            return
+        moveNo = 0
+        var availmoves = []
+        for (let i = 0; i < grid.length; i++) {
+            availmoves.push(grid[i].dataset.id)
         }
-        console.log("playmode 1")
+        play = (pos) => {
+
+            console.log("moveNo : ", moveNo)
+
+            // play only if box is not already colored i.e played
+            if (pos.style["background-color"] === "white") {
+                // if (moveNo === 0) {
+                if (userclick) {
+                    pos.style["background-color"] = "#87b7eb";
+                    user1moves.push(pos.dataset.id)
+
+                    // next move comp move
+                    userclick = false
+
+                    let random = Math.floor(Math.random() * availmoves.length);
+                    document.getElementById(availmoves[random]).click()
+
+                    // delete played move from available moves array
+                    availmoves.splice(availmoves.indexOf(pos.dataset.id), 1)
+
+                } else {
+                    pos.style["background-color"] = "#ffaf12";
+                    user2moves.push(pos.dataset.id)
+
+                    // next move user move
+                    userclick = true
+
+                    // delete played move from available moves array
+                    availmoves.splice(availmoves.indexOf(pos.dataset.id), 1)
+                }
+            }
+            else {
+                return
+            }
+
+
+            win1 = checkWin(user1moves)
+            win2 = checkWin(user2moves)
+            Tie = user1moves.length + user2moves.length === 9
+            if (win1 || win2 || Tie) {
+
+                disableClick()
+                availmoves.length = 0
+                for (let i = 0; i < grid.length; i++) {
+                    availmoves.push(grid[i].dataset.id)
+                }
+                moveNo = 0
+
+                // display winner
+                if (win1) {
+                    mainContainer.style["background-color"] = "#89d1ff";
+                } else if (win2) {
+                    mainContainer.style["background-color"] = "#ffc960";
+
+                } else {
+                    mainContainer.style["background-color"] = "#EBEBEB";
+                }
+
+                // resetTimer countDown
+                let i = 0
+                setInterval(() => {
+                    i += 1
+                    if (i >= 4) {
+                        return
+                    }
+                    resettimer.innerHTML = (3 - i) + " s"
+                }, 980)
+
+                // add delay to reset
+                setTimeout(() => {
+                    reset(grid)
+                    enableClick()
+                    mainContainer.style["background-color"] = "transparent";
+                }, 3000)
+
+                // empty usermoves arrays
+                user1moves.length = 0
+                user2moves.length = 0
+            }
+        }
+    }
+    else {
+        alert("error")
     }
 }
 
-let moveNo = 2
 
