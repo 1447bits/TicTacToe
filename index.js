@@ -1,5 +1,7 @@
 // bugs (which i dont want to Fix)
-// if you anyhow manage to play it (2^1024)/2 times the limit it will exceed the limit of stoorage and game will crash
+// if you anyhow manage to play it (2^1024)/2 times it will exceed the limit of stoorage and game will crash
+
+// initialise game with DP 
 
 
 const a11 = document.getElementById("11")
@@ -25,6 +27,19 @@ function enableClick() {
     })
 }
 
+// check win function
+function checkWin(list) {
+    if (list.indexOf("11") != -1 && list.indexOf("12") != -1 && list.indexOf("13") != -1) { return true }
+    else if (list.indexOf("21") != -1 && list.indexOf("22") != -1 && list.indexOf("23") != -1) { return true }
+    else if (list.indexOf("31") != -1 && list.indexOf("32") != -1 && list.indexOf("33") != -1) { return true }
+    else if (list.indexOf("11") != -1 && list.indexOf("21") != -1 && list.indexOf("31") != -1) { return true }
+    else if (list.indexOf("12") != -1 && list.indexOf("22") != -1 && list.indexOf("32") != -1) { return true }
+    else if (list.indexOf("13") != -1 && list.indexOf("23") != -1 && list.indexOf("33") != -1) { return true }
+    else if (list.indexOf("11") != -1 && list.indexOf("22") != -1 && list.indexOf("33") != -1) { return true }
+    else if (list.indexOf("13") != -1 && list.indexOf("22") != -1 && list.indexOf("31") != -1) { return true }
+    else { return false }
+}
+
 function disableClick() {
     grid.forEach((i) => {
         i.style["pointer-events"] = "none"
@@ -38,19 +53,31 @@ function reset(list) {
     })
 }
 
-function checkWin(list) {
-    if (list.indexOf("11") != -1 && list.indexOf("12") != -1 && list.indexOf("13") != -1) { return true }
-    else if (list.indexOf("21") != -1 && list.indexOf("22") != -1 && list.indexOf("23") != -1) { return true }
-    else if (list.indexOf("31") != -1 && list.indexOf("32") != -1 && list.indexOf("33") != -1) { return true }
-    else if (list.indexOf("11") != -1 && list.indexOf("21") != -1 && list.indexOf("31") != -1) { return true }
-    else if (list.indexOf("12") != -1 && list.indexOf("22") != -1 && list.indexOf("32") != -1) { return true }
-    else if (list.indexOf("13") != -1 && list.indexOf("23") != -1 && list.indexOf("33") != -1) { return true }
-    else if (list.indexOf("11") != -1 && list.indexOf("22") != -1 && list.indexOf("33") != -1) { return true }
-    else if (list.indexOf("13") != -1 && list.indexOf("22") != -1 && list.indexOf("31") != -1) { return true }
-    else { return false }
-}
+
+// change play Mode
+// event Single player
+document.getElementById("SP").addEventListener("click", (e) => {
+    document.getElementById("turnDisplay").style.display = "none"
+    document.getElementById("SP").style.background = "#59b8e8"
+    document.getElementById("DP").style.background = "transparent"
 
 
+})
+
+// event Double player
+document.getElementById("DP").addEventListener("click", () => {
+    document.getElementById("turnDisplay").style.display = "flex"
+    document.getElementById("DP").style.background = "#59b8e8"
+    document.getElementById("SP").style.background = "transparent"
+    const boxes = document.getElementsByClassName("box")
+    for (box of boxes) {
+        box.addEventListener("click", (e) => {
+            play(e.target)
+        })
+    }
+})
+// initially game starts in 2 player
+document.getElementById("DP").click()
 
 // initialise each box in grid
 reset(grid)
@@ -63,13 +90,13 @@ P1txt.style["background-color"] = " #d9effd "
 // P1txt.style["background-color"] = " #d9effd "
 // P2txt.style["background-color"] = " #ffe5b4 "
 
+// play function for two player
 let moveNo = 2
-const move = (box) => {
-
-    if (box.style["background-color"] === "white") {
+const play = (pos) => {
+    if (pos.style["background-color"] === "white") {
         if (moveNo % 2 === 0) {
-            box.style["background-color"] = "#87b7eb";
-            user1moves.push(box.dataset.id)
+            pos.style["background-color"] = "#87b7eb";
+            user1moves.push(pos.dataset.id)
 
             moveNo += 1
 
@@ -78,8 +105,8 @@ const move = (box) => {
             P2txt.style["background-color"] = " #ffe5b4 "
 
         } else {
-            box.style["background-color"] = "#ffaf12";
-            user2moves.push(box.dataset.id)
+            pos.style["background-color"] = "#ffaf12";
+            user2moves.push(pos.dataset.id)
 
             moveNo += 1
 
@@ -88,7 +115,8 @@ const move = (box) => {
             P2txt.style["background-color"] = " #ffffff "
         }
     }
-    // play undo condition (🤫 its cheating) 
+
+    // // play undo condition (🤫 its cheating) 
     // else {
     //     box.style["background-color"] = "white";
     // }
@@ -97,9 +125,10 @@ const move = (box) => {
     win2 = checkWin(user2moves)
     win = user1moves.length + user2moves.length === 9
     if (win1 || win2 || win) {
-        
+
         disableClick()
 
+        // display winner
         if (win1) {
             mainContainer.style["background-color"] = "#89d1ff";
             P2txt.style.display = "none"
@@ -143,8 +172,6 @@ const move = (box) => {
         // empty usermoves arrays
         user1moves.length = 0
         user2moves.length = 0
-
     }
-
-
 }
+

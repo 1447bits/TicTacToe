@@ -60,3 +60,40 @@
     pointer-events: all;
     width: 50px;
 }
+#PlayMode {
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+}
+#SP , #DP{
+    padding-inline: 1em ;
+    padding-top: 0.5em;
+    padding-bottom: 0.4em;
+    background: transparent;
+    border-radius: 0.5em;
+}
+#SP img , #DP img{
+    width: 1em;
+}
+#PlayMode-text {
+    display: none;
+}
+#SP:hover , #DP:hover{
+    border: blue 1px solid;
+}
+
+#SP:hover #PlayMode-text , #DP:hover #PlayMode-text{
+    display: block;
+    position: absolute;
+    opacity: 1;
+    width: 5em;
+    margin-top: 5px;
+    background: rgba(77, 77, 77, 0.71);
+    padding: 0.1em;
+    border-radius: 0.5em;
+    color: white;
+}
+
+#DP {
+    background: #59b8e8;
+}
