@@ -53,11 +53,6 @@ function reset(list) {
     })
 }
 
-// play function initialised
-var play = (pos) => {
-    return
-}
-
 
 // change play Mode
 // event Single player
@@ -85,115 +80,109 @@ P1txt.style["background-color"] = " #d9effd "
 // P1txt.style["background-color"] = " #d9effd "
 // P2txt.style["background-color"] = " #ffe5b4 "
 
-// click event for each box in grid
-// we will modify play function according to our playmode 1p or 2p
-const boxes = document.getElementsByClassName("box")
-for (box of boxes) {
-    box.addEventListener("click", (e) => {
-        play(e.target)
-    })
-}
-
 
 function changePlayMode(playMode) {
 
     if (playMode == 2) {
-        play = (pos) => {
-            if (pos.style["background-color"] === "white") {
-                if (moveNo % 2 === 0) {
-                    pos.style["background-color"] = "#87b7eb";
-                    user1moves.push(pos.dataset.id)
-        
-                    moveNo += 1
-        
-                    // switch player move display
-                    P1txt.style["background-color"] = " #ffffff "
-                    P2txt.style["background-color"] = " #ffe5b4 "
-        
-                } else {
-                    pos.style["background-color"] = "#ffaf12";
-                    user2moves.push(pos.dataset.id)
-        
-                    moveNo += 1
-        
-                    // switch player move display
-                    P1txt.style["background-color"] = " #d9effd "
-                    P2txt.style["background-color"] = " #ffffff "
-                }
-            }
-        
-            // // play undo condition (🤫 its cheating) 
-            // else {
-            //     box.style["background-color"] = "white";
-            // }
-        
-            win1 = checkWin(user1moves)
-            win2 = checkWin(user2moves)
-            win = user1moves.length + user2moves.length === 9
-            if (win1 || win2 || win) {
-        
-                disableClick()
-        
-                // display winner
-                if (win1) {
-                    mainContainer.style["background-color"] = "#89d1ff";
-                    P2txt.style.display = "none"
-                    P1txt.style.transform = "scale(2)";
-                    P1txt.style.background = "transparent";
-                } else if (win2) {
-                    mainContainer.style["background-color"] = "#ffc960";
-                    P1txt.style.display = "none"
-                    P2txt.style.transform = "scale(2)";
-                    P2txt.style.background = "transparent";
-        
-                } else {
-                    mainContainer.style["background-color"] = "#EBEBEB";
-                    P1txt.style.display = "none"
-                    P2txt.style.display = "none"
-                }
-        
-                // resetTimer countDown
-                let i = 0
-                setInterval(() => {
-                    i += 1
-                    if (i >= 4) {
-                        return
-                    }
-                    resettimer.innerHTML = (3 - i) + " s"
-                }, 980)
-        
-                // add delay to reset
-                setTimeout(() => {
-                    reset(grid)
-                    enableClick()
-                    mainContainer.style["background-color"] = "transparent";
-                    P1txt.style.display = "flex"
-                    P2txt.style.display = "flex"
-                    P1txt.style.transform = "scale(1)"
-                    P2txt.style.transform = "scale(1)"
-        
-        
-                }, 3000)
-        
-                // empty usermoves arrays
-                user1moves.length = 0
-                user2moves.length = 0
-            }
+        const boxes = document.getElementsByClassName("box")
+        for (box of boxes) {
+            box.addEventListener("click", (e) => {
+                play_2player(e.target)
+            })
         }
         console.log("playmode 2")
     }
-
+    
     else if (playMode == 1) {
         reset(grid)
         user1moves.length = 0
         user2moves.length = 0
-        var availmoves = [...grid]
-        play = (pos) => {
-            return
-        }
+
         console.log("playmode 1")
     }
 }
 
 let moveNo = 2
+const play_2player = (pos) => {
+    if (pos.style["background-color"] === "white") {
+        if (moveNo % 2 === 0) {
+            pos.style["background-color"] = "#87b7eb";
+            user1moves.push(pos.dataset.id)
+
+            moveNo += 1
+
+            // switch player move display
+            P1txt.style["background-color"] = " #ffffff "
+            P2txt.style["background-color"] = " #ffe5b4 "
+
+        } else {
+            pos.style["background-color"] = "#ffaf12";
+            user2moves.push(pos.dataset.id)
+
+            moveNo += 1
+
+            // switch player move display
+            P1txt.style["background-color"] = " #d9effd "
+            P2txt.style["background-color"] = " #ffffff "
+        }
+    }
+
+    // // play undo condition (🤫 its cheating) 
+    // else {
+    //     box.style["background-color"] = "white";
+    // }
+
+    win1 = checkWin(user1moves)
+    win2 = checkWin(user2moves)
+    win = user1moves.length + user2moves.length === 9
+    if (win1 || win2 || win) {
+
+        disableClick()
+
+        // display winner
+        if (win1) {
+            mainContainer.style["background-color"] = "#89d1ff";
+            P2txt.style.display = "none"
+            P1txt.style.transform = "scale(2)";
+            P1txt.style.background = "transparent";
+        } else if (win2) {
+            mainContainer.style["background-color"] = "#ffc960";
+            P1txt.style.display = "none"
+            P2txt.style.transform = "scale(2)";
+            P2txt.style.background = "transparent";
+
+        } else {
+            mainContainer.style["background-color"] = "#EBEBEB";
+            P1txt.style.display = "none"
+            P2txt.style.display = "none"
+        }
+
+        // resetTimer countDown
+        let i = 0
+        setInterval(() => {
+            i += 1
+            if (i >= 4) {
+                return
+            }
+            resettimer.innerHTML = (3 - i) + " s"
+        }, 980)
+
+        // add delay to reset
+        setTimeout(() => {
+            reset(grid)
+            enableClick()
+            mainContainer.style["background-color"] = "transparent";
+            P1txt.style.display = "flex"
+            P2txt.style.display = "flex"
+            P1txt.style.transform = "scale(1)"
+            P2txt.style.transform = "scale(1)"
+
+
+        }, 3000)
+
+        // empty usermoves arrays
+        user1moves.length = 0
+        user2moves.length = 0
+    }
+}
 
