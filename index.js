@@ -63,11 +63,16 @@ var play = (pos) => {
 // change play Mode
 // event Single player
 document.getElementById("SP").addEventListener("click", (e) => {
-    document.getElementById("turnDisplay").style.display = "none"
-    document.getElementById("SP").style.background = "#59b8e8"
-    document.getElementById("DP").style.background = "transparent"
-    changePlayMode(1)
-    reset(grid)
+    // document.getElementById("turnDisplay").style.display = "none"
+    // document.getElementById("SP").style.background = "#59b8e8"
+    // document.getElementById("DP").style.background = "transparent"
+    
+    // changePlayMode(1)
+    
+    // reset(grid)
+
+    alert("1P is not ready Yet, sorry for the inconvenience")
+
 })
 // event Double player
 document.getElementById("DP").addEventListener("click", () => {
@@ -77,7 +82,7 @@ document.getElementById("DP").addEventListener("click", () => {
     changePlayMode(2)
 })
 // initially game starts in 2 player
-document.getElementById("SP").click()
+document.getElementById("DP").click()
 
 // initialise each box in grid
 reset(grid)
