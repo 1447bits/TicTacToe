@@ -1,22 +1,26 @@
-// bugs (which i dont want to Fix)
-// if you anyhow manage to play it (2^1024)/2 times it will exceed the limit of stoorage and game will crash
+/* issues 
+    after few playes computer click() function runs and unwanted moves are played 
+*/
 
 
-const a11 = document.getElementById("11")
-const a12 = document.getElementById("12")
-const a13 = document.getElementById("13")
-const a21 = document.getElementById("21")
-const a22 = document.getElementById("22")
-const a23 = document.getElementById("23")
-const a31 = document.getElementById("31")
-const a32 = document.getElementById("32")
-const a33 = document.getElementById("33")
 const resettimer = document.getElementById("resettimer")
 const mainContainer = document.getElementById("main")
 const gridfield = document.getElementsByClassName("box")
 const P1txt = document.getElementById("Player-1-text")
 const P2txt = document.getElementById("Player-2-text")
-const grid = [a11, a12, a13, a21, a22, a23, a31, a32, a33]
+
+const grid = [
+    document.getElementById("11"),
+    document.getElementById("12"),
+    document.getElementById("13"),
+    document.getElementById("21"),
+    document.getElementById("22"),
+    document.getElementById("23"),
+    document.getElementById("31"),
+    document.getElementById("32"),
+    document.getElementById("33")
+]
+
 const user1moves = []
 const user2moves = []
 let userclick = true
@@ -25,6 +29,12 @@ let userclick = true
 function enableClick() {
     grid.forEach((i) => {
         i.style["pointer-events"] = "all"
+    })
+}
+
+function disableClick() {
+    grid.forEach((i) => {
+        i.style["pointer-events"] = "none"
     })
 }
 
@@ -39,12 +49,6 @@ function checkWin(list) {
     else if (list.indexOf("11") != -1 && list.indexOf("22") != -1 && list.indexOf("33") != -1) { return true }
     else if (list.indexOf("13") != -1 && list.indexOf("22") != -1 && list.indexOf("31") != -1) { return true }
     else { return false }
-}
-
-function disableClick() {
-    grid.forEach((i) => {
-        i.style["pointer-events"] = "none"
-    })
 }
 
 // reset grid function
@@ -63,16 +67,13 @@ var play = (pos) => {
 // change play Mode
 // event Single player
 document.getElementById("SP").addEventListener("click", (e) => {
-    // document.getElementById("turnDisplay").style.display = "none"
-    // document.getElementById("SP").style.background = "#59b8e8"
-    // document.getElementById("DP").style.background = "transparent"
-    
-    // changePlayMode(1)
-    
-    // reset(grid)
+    document.getElementById("turnDisplay").style.display = "none"
+    document.getElementById("SP").style.background = "#59b8e8"
+    document.getElementById("DP").style.background = "transparent"
 
-    alert("1P is not ready Yet, sorry for the inconvenience")
+    changePlayMode(1)
 
+    reset(grid)
 })
 // event Double player
 document.getElementById("DP").addEventListener("click", () => {
@@ -103,6 +104,11 @@ function changePlayMode(playMode) {
 
     // double player
     if (playMode == 2) {
+
+        // --------------------
+        document.getElementById("message").style.display = "none"
+        // --------------------
+
         let moveNo = 2
 
         play = (pos) => {
@@ -191,17 +197,22 @@ function changePlayMode(playMode) {
 
     // single player
     else if (playMode == 1) {
+
+        // --------------------
+        document.getElementById("message").style.display = ""
+        // --------------------
+
         reset(grid)
         user1moves.length = 0
         user2moves.length = 0
-        moveNo = 0
         var availmoves = []
         for (let i = 0; i < grid.length; i++) {
             availmoves.push(grid[i].dataset.id)
         }
+
         play = (pos) => {
 
-            console.log("moveNo : ", moveNo)
+            // console.log("moveNo : ", moveNo)
 
             // play only if box is not already colored i.e played
             if (pos.style["background-color"] === "white") {
@@ -213,11 +224,14 @@ function changePlayMode(playMode) {
                     // next move comp move
                     userclick = false
 
-                    let random = Math.floor(Math.random() * availmoves.length);
-                    document.getElementById(availmoves[random]).click()
-
                     // delete played move from available moves array
                     availmoves.splice(availmoves.indexOf(pos.dataset.id), 1)
+                    console.log("You played : ", availmoves)
+
+                    let random = Math.floor(Math.random() * availmoves.length);
+                    setTimeout(() => {
+                        document.getElementById(availmoves[random]).click()
+                    }, 100)
 
                 } else {
                     pos.style["background-color"] = "#ffaf12";
@@ -228,6 +242,8 @@ function changePlayMode(playMode) {
 
                     // delete played move from available moves array
                     availmoves.splice(availmoves.indexOf(pos.dataset.id), 1)
+                    console.log("i played : ", availmoves)
+
                 }
             }
             else {
@@ -245,14 +261,13 @@ function changePlayMode(playMode) {
                 for (let i = 0; i < grid.length; i++) {
                     availmoves.push(grid[i].dataset.id)
                 }
-                moveNo = 0
+                userclick = true
 
                 // display winner
                 if (win1) {
                     mainContainer.style["background-color"] = "#89d1ff";
                 } else if (win2) {
                     mainContainer.style["background-color"] = "#ffc960";
-
                 } else {
                     mainContainer.style["background-color"] = "#EBEBEB";
                 }
@@ -281,7 +296,7 @@ function changePlayMode(playMode) {
         }
     }
     else {
-        alert("error")
+        alert("error playmode is Nother 1 Nor 2")
     }
 }
 
