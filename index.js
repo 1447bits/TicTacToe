@@ -1,5 +1,5 @@
 /* issues 
-    after few playes computer click() function runs and unwanted moves are played 
+    after few playes computer click() function runs and unwanted moves are played even after checiWin returned true
 */
 
 
@@ -82,6 +82,7 @@ document.getElementById("DP").addEventListener("click", () => {
     document.getElementById("SP").style.background = "transparent"
     changePlayMode(2)
 })
+
 // initially game starts in 2 player
 document.getElementById("DP").click()
 
@@ -203,8 +204,12 @@ function changePlayMode(playMode) {
         // --------------------
 
         reset(grid)
+
+        // empty the array
         user1moves.length = 0
         user2moves.length = 0
+
+        // list of moves that can be played by computer
         var availmoves = []
         for (let i = 0; i < grid.length; i++) {
             availmoves.push(grid[i].dataset.id)
@@ -212,7 +217,6 @@ function changePlayMode(playMode) {
 
         play = (pos) => {
 
-            // console.log("moveNo : ", moveNo)
 
             // play only if box is not already colored i.e played
             if (pos.style["background-color"] === "white") {
@@ -231,7 +235,7 @@ function changePlayMode(playMode) {
                     let random = Math.floor(Math.random() * availmoves.length);
                     setTimeout(() => {
                         document.getElementById(availmoves[random]).click()
-                    }, 100)
+                    }, 300)
 
                 } else {
                     pos.style["background-color"] = "#ffaf12";
@@ -261,7 +265,6 @@ function changePlayMode(playMode) {
                 for (let i = 0; i < grid.length; i++) {
                     availmoves.push(grid[i].dataset.id)
                 }
-                userclick = true
 
                 // display winner
                 if (win1) {
@@ -292,6 +295,7 @@ function changePlayMode(playMode) {
                 // empty usermoves arrays
                 user1moves.length = 0
                 user2moves.length = 0
+                userclick = true
             }
         }
     }
