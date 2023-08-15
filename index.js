@@ -68,7 +68,8 @@ var play = (pos) => {
 // event Single player
 document.getElementById("SP").addEventListener("click", (e) => {
     document.getElementById("turnDisplay").style.display = "none"
-    document.getElementById("SP").style.background = "#59b8e8"
+    // document.getElementById("SP").style.background = "#d1e859"
+    document.getElementById("SP").style.background = "#789ba8"
     document.getElementById("DP").style.background = "transparent"
 
     changePlayMode(1)
@@ -78,7 +79,7 @@ document.getElementById("SP").addEventListener("click", (e) => {
 // event Double player
 document.getElementById("DP").addEventListener("click", () => {
     document.getElementById("turnDisplay").style.display = "flex"
-    document.getElementById("DP").style.background = "#59b8e8"
+    document.getElementById("DP").style.background = "#789ba8"
     document.getElementById("SP").style.background = "transparent"
     changePlayMode(2)
 })
@@ -121,7 +122,7 @@ function changePlayMode(playMode) {
                     moveNo += 1
 
                     // switch player move display
-                    P1txt.style["background-color"] = " #ffffff "
+                    P1txt.style["background-color"] = " transparent "
                     P2txt.style["background-color"] = " #ffe5b4 "
 
                 } else {
@@ -132,7 +133,7 @@ function changePlayMode(playMode) {
 
                     // switch player move display
                     P1txt.style["background-color"] = " #d9effd "
-                    P2txt.style["background-color"] = " #ffffff "
+                    P2txt.style["background-color"] = " transparent "
                 }
             }
 
@@ -150,18 +151,18 @@ function changePlayMode(playMode) {
 
                 // display winner
                 if (win1) {
-                    mainContainer.style["background-color"] = "#89d1ff";
+                    mainContainer.style["background"] = "#89d1ff";
                     P2txt.style.display = "none"
                     P1txt.style.transform = "scale(2)";
                     P1txt.style.background = "transparent";
                 } else if (win2) {
-                    mainContainer.style["background-color"] = "#ffc960";
+                    mainContainer.style["background"] = "#ffc960";
                     P1txt.style.display = "none"
                     P2txt.style.transform = "scale(2)";
                     P2txt.style.background = "transparent";
 
                 } else {
-                    mainContainer.style["background-color"] = "#EBEBEB";
+                    mainContainer.style["background"] = "linear-gradient(rgb(145 205 165), rgb(140 158 169))";
                     P1txt.style.display = "none"
                     P2txt.style.display = "none"
                 }
@@ -180,7 +181,7 @@ function changePlayMode(playMode) {
                 setTimeout(() => {
                     reset(grid)
                     enableClick()
-                    mainContainer.style["background-color"] = "transparent";
+                    mainContainer.style["background"] = "linear-gradient(rgb(145 205 165), rgb(140 158 169))";
                     P1txt.style.display = "flex"
                     P2txt.style.display = "flex"
                     P1txt.style.transform = "scale(1)"
@@ -268,11 +269,11 @@ function changePlayMode(playMode) {
 
                 // display winner
                 if (win1) {
-                    mainContainer.style["background-color"] = "#89d1ff";
+                    mainContainer.style["background"] = "#89d1ff";
                 } else if (win2) {
-                    mainContainer.style["background-color"] = "#ffc960";
+                    mainContainer.style["background"] = "#ffc960";
                 } else {
-                    mainContainer.style["background-color"] = "#EBEBEB";
+                    mainContainer.style["background"] = "linear-gradient(rgb(145 205 165), rgb(140 158 169))";
                 }
 
                 // resetTimer countDown
@@ -289,7 +290,7 @@ function changePlayMode(playMode) {
                 setTimeout(() => {
                     reset(grid)
                     enableClick()
-                    mainContainer.style["background-color"] = "transparent";
+                    mainContainer.style["background"] = "linear-gradient(rgb(145 205 165), rgb(140 158 169))";
                 }, 3000)
 
                 // empty usermoves arrays
