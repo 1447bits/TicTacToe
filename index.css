@@ -26,6 +26,8 @@ body::after {
 }
 body {
     background: linear-gradient(to left, #798a7f, #8491a0, #768291, #6e8694, #658596, #5a4a85);
+    width: 100vw;
+    overflow: hidden;
 }
 
 #website-title {
@@ -38,7 +40,7 @@ body {
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    width: min(350px, 90%);
+    width: min(350px, 80vw);
     min-width: 250px;
     aspect-ratio: 0.6;
     gap: 2em;
