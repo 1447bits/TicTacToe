@@ -1,13 +1,13 @@
 // check win function
 export function checkWin(list) {
-    if (list.indexOf("11") != -1 && list.indexOf("12") != -1 && list.indexOf("13") != -1) { return true }
-    else if (list.indexOf("21") != -1 && list.indexOf("22") != -1 && list.indexOf("23") != -1) { return true }
-    else if (list.indexOf("31") != -1 && list.indexOf("32") != -1 && list.indexOf("33") != -1) { return true }
-    else if (list.indexOf("11") != -1 && list.indexOf("21") != -1 && list.indexOf("31") != -1) { return true }
-    else if (list.indexOf("12") != -1 && list.indexOf("22") != -1 && list.indexOf("32") != -1) { return true }
-    else if (list.indexOf("13") != -1 && list.indexOf("23") != -1 && list.indexOf("33") != -1) { return true }
-    else if (list.indexOf("11") != -1 && list.indexOf("22") != -1 && list.indexOf("33") != -1) { return true }
-    else if (list.indexOf("13") != -1 && list.indexOf("22") != -1 && list.indexOf("31") != -1) { return true }
+    if (list.indexOf(1) != -1 && list.indexOf(2) != -1 && list.indexOf(3) != -1) { return true }
+    else if (list.indexOf(4) != -1 && list.indexOf(5) != -1 && list.indexOf(6) != -1) { return true }
+    else if (list.indexOf(7) != -1 && list.indexOf(8) != -1 && list.indexOf(9) != -1) { return true }
+    else if (list.indexOf(1) != -1 && list.indexOf(4) != -1 && list.indexOf(7) != -1) { return true }
+    else if (list.indexOf(2) != -1 && list.indexOf(5) != -1 && list.indexOf(8) != -1) { return true }
+    else if (list.indexOf(3) != -1 && list.indexOf(6) != -1 && list.indexOf(9) != -1) { return true }
+    else if (list.indexOf(1) != -1 && list.indexOf(5) != -1 && list.indexOf(9) != -1) { return true }
+    else if (list.indexOf(3) != -1 && list.indexOf(5) != -1 && list.indexOf(7) != -1) { return true }
     else { return false }
 }
 
@@ -37,4 +37,12 @@ export function reset(list) {
         list[i].style.background = "#000000e0"
         list[i].dataset.played = 0
     }
+}
+
+export function clickToPlay(pos, grid) {
+    setTimeout(() => {
+        enableClick(grid)
+        grid[pos].click()
+        return true
+    }, 200);
 }
