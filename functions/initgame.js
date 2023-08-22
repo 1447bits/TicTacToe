@@ -36,7 +36,7 @@ export function GameInit(playgrid, singleplayer) {
                         user1moves.length = 0
                         user2moves.length = 0
                         u1wins++
-                        turn = false
+                        singleplayer ? turn = false : turn = turn;
                     }
                     else if (singleplayer) {
                         disableClick(playgrid)
@@ -56,7 +56,7 @@ export function GameInit(playgrid, singleplayer) {
                         user1moves.length = 0
                         user2moves.length = 0
                         u2wins++
-                        turn = false
+                        singleplayer ? turn = false : turn = turn;
                     }
 
                     turn = !turn
