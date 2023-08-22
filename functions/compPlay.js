@@ -59,24 +59,24 @@ export function compPlay(oppmoves, thisUserMoves, playgrid) {
         return
     }
     else {
-        console.log("_______________________")
+        // console.log("_______________________")
         // check colwin
         let bestPlayAgainst = checkTriad(oppmoves, availMoves)
-        console.log("bestPlayAgainst = ", bestPlayAgainst)
+        // console.log("bestPlayAgainst = ", bestPlayAgainst)
         let selfBestPlay = checkTriad(thisUserMoves, availMoves)
-        console.log("selfBestPlay = ", selfBestPlay)
+        // console.log("selfBestPlay = ", selfBestPlay)
         // let bestPlay = findCommonNumbers(bestPlayAgainst, selfBestPlay)
         // console.log("bestPlay = ", bestPlay)
         let bestPlay = concatenateArraysWithoutRepeats(selfBestPlay, bestPlayAgainst)
-        console.log("concat bestPlay = ", bestPlay)
+        // console.log("concat bestPlay = ", bestPlay)
 
         let bestPlayPlayed = false
         bestPlay.forEach((bestMove) => {
             if (availMoves.indexOf(bestMove) != -1) {
-                console.log("bestplay against user with best move = ", bestMove)
-                console.log("and best play = ", bestPlay)
-                console.log("where oppmoves = ", oppmoves)
-                console.log("where thisusermoves = ", thisUserMoves)
+                // console.log("bestplay against user with best move = ", bestMove)
+                // console.log("and best play = ", bestPlay)
+                // console.log("where oppmoves = ", oppmoves)
+                // console.log("where thisusermoves = ", thisUserMoves)
                 if (!bestPlayPlayed) {
                     clickToPlay(bestMove - 1, playgrid)
                 }
@@ -85,7 +85,7 @@ export function compPlay(oppmoves, thisUserMoves, playgrid) {
             }
         })
         if (!bestPlayPlayed) {
-            console.log("not bestPlayed")
+            // console.log("not bestPlayed")
             bestPlay = checkTriad(thisUserMoves, availMoves)
             let bestPlayPlayed = false
             bestPlay.forEach((bestMove) => {
@@ -95,7 +95,7 @@ export function compPlay(oppmoves, thisUserMoves, playgrid) {
                     return
                 }
             })
-            console.log("playedrandom")
+            // console.log("playedrandom")
             clickToPlay(availMoves[getRandomIndexFromArray(availMoves)] - 1, playgrid)
             return
         }

@@ -147,6 +147,7 @@ body {
 }
 
 #SP:hover,
+.activePlayMode,
 #DP:hover {
     border: rgb(18, 69, 56) 1px solid;
 }
