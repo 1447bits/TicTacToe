@@ -88,6 +88,7 @@ body {
     width: 70%;
     justify-content: space-between;
 }
+
 .Player-text-span,
 #turnDisplay {
     font-family: "Kanit";
@@ -183,7 +184,7 @@ body {
 #SP img,
 #DP img {
     background: rgba(30, 32, 30, 0.805);
-    width: 100%;
+    width: 80%;
     padding: 0.5em 0.8em;
     border-radius: 12px;
 }
@@ -229,5 +230,10 @@ body {
     .main::after,
     .main {
         aspect-ratio: 0.45;
+    }
+
+    .placeO::after,
+    .placeX::after {
+        font-size: 3em;
     }
 }
