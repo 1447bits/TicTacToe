@@ -9,31 +9,31 @@
     <title>TicTacToe</title>
     <link rel="icon" type="image/x-icon" href="./icon-imgs/favicon.png">
 </head>
-        
+
 <body>
     <div class="main" id="main">
-        <h1 id="website-title">TicTacToe</h1>
+        <span id="website-title">Tic Tac Toe</span>
         <span id="PlayMode">
             <button id="SP" class="activePlayMode">
-                <img src="https://cdn-icons-png.flaticon.com/128/2354/2354573.png" alt="">
-                <p id="PlayMode-text">One Player</p>
+                <img src="./icon-imgs/pvBotIcon.png" alt="">
             </button> <!-- sp = single player -->
             <button id="DP">
-                <img src="https://cdn-icons-png.flaticon.com/128/2354/2354573.png" alt=""><img src="https://cdn-icons-png.flaticon.com/128/2354/2354573.png" alt="">
-                <p id="PlayMode-text">Two Player</p>
+                <img src="./icon-imgs/pvpIcon.png" alt="">
             </button> <!-- DP = Double player -->
         </span>
         <span id="turnDisplay">
-            <p id="Player-1-text">Player 1</p>
-            <p id="Player-2-text">Player 2</p>
-        </span>
-        <span id="winCounter">
-            <p id="Player-1-wins">0</p>
-            <p id="Player-2-wins">0</p>  
+            <span class="Player-text-span">
+                <p id="Player-1-text" class="Player-turn">X</p> : 
+                <p id="Player-1-wins">0</p>
+            </span>
+            <span class="Player-text-span">
+                <p id="Player-2-text">O</p> : 
+                <p id="Player-2-wins">0</p>
+            </span>
         </span>
         <div id="main-box">
-            <div id="11" class="box" data-id="1"></div>
-            <div id="12" class="box" data-id="2"></div>
+            <div id="11" class="box placeX" data-id="1"></div>
+            <div id="12" class="box placeO" data-id="2"></div>
             <div id="13" class="box" data-id="3"></div>
             <div id="21" class="box" data-id="4"></div>
             <div id="22" class="box" data-id="5"></div>
@@ -42,9 +42,10 @@
             <div id="32" class="box" data-id="8"></div>
             <div id="33" class="box" data-id="9"></div>
         </div>
-        <div id="reset">
-            <p>new game starts in </p>
-            <p id="resettimer">0 s</p>
+        <div id="reset"></div>
+
+        <div id="credits">
+            <a href="https://github.com/1447bits/" target="_blank">github@1447bits</a>
         </div>
     </div>
 </body>
