@@ -1,4 +1,4 @@
-import { disableClick, enableClick, reset } from "./basics.js"
+import { disableClick, reset } from "./basics.js"
 import { ifwin } from "./ifwin.js"
 import { compPlay } from "./compPlay.js"
 
@@ -41,10 +41,9 @@ export function GameInit(playgrid, singleplayer) {
                     else if (singleplayer) {
                         disableClick(playgrid)
                         setTimeout(() => {
-                            compPlay(user1moves, user2moves, playgrid)  
+                            compPlay(user1moves, user2moves, playgrid)
                         }, 500);
                     }
-
                     turn = !turn
                 } else {
                     e.style.background = player2Color
@@ -58,7 +57,6 @@ export function GameInit(playgrid, singleplayer) {
                         u2wins++
                         singleplayer ? turn = false : turn = turn;
                     }
-
                     turn = !turn
                 }
             }

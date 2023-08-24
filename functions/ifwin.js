@@ -23,17 +23,21 @@ export function ifwin(list, color, otherlist, winner, playgrid, u1wins, u2wins) 
             clearInterval(counterInternal)
             resettimer.innerHTML = 0 + "s"
             enableClick(playgrid)
-        }, 2050);
+        }, 2000);
     }
 
     if (checkWin(list)) {
         mainContainer.style.background = color;
         if (winner == 1) {
-            u1wins += 1
-            P1winCount.innerHTML = u1wins
+            // u1wins += 1
+            // P1winCount.innerHTML = u1wins
+            const wincount = parseInt(P1winCount.innerHTML) 
+            P1winCount.innerHTML = wincount+1
         } else {
-            u2wins += 1
-            P2winCount.innerHTML = u2wins
+            // u2wins += 1
+            // P2winCount.innerHTML = u2wins
+            const wincount = parseInt(P2winCount.innerHTML) 
+            P2winCount.innerHTML = wincount+1
         }
         routineOnWinOrTie()
         return true
