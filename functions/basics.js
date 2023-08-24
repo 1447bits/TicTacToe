@@ -34,8 +34,10 @@ export function disableClick(list) {
 // reset grid function
 export function reset(list) {
     for (let i = 0; i < list.length; i++) {
-        list[i].style.background = "#000000e0"
+        list[i].style.background = "#0000003b"
         list[i].dataset.played = 0
+        list[i].classList.remove("placeX")
+        list[i].classList.remove("placeO")
     }
 }
 

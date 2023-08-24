@@ -30,7 +30,7 @@ export function compPlay(oppmoves, thisUserMoves, playgrid) {
             }
         })
         if (best.length == 0) {
-            console.log("bestPlay is random")
+            // console.log("bestPlay is random")
             return [getRandomIndexFromArray(availPlays)]
         }
         return best
@@ -61,12 +61,12 @@ export function compPlay(oppmoves, thisUserMoves, playgrid) {
     }
     else {
         let bestPlay = []
-        console.log("_______________________")
+        // console.log("_______________________")
         // check colwin
         let bestPlayAgainst = checkTriad(oppmoves, availMoves)
-        console.log("bestPlayAgainst = ", bestPlayAgainst)
+        // console.log("bestPlayAgainst = ", bestPlayAgainst)
         let selfBestPlay = checkTriad(thisUserMoves, availMoves)
-        console.log("selfBestPlay = ", selfBestPlay)
+        // console.log("selfBestPlay = ", selfBestPlay)
         
         // if computer has played only 0 or 1 moves priority will be to block opponant not try win
         if (thisUserMoves.length < 2) {
@@ -74,15 +74,15 @@ export function compPlay(oppmoves, thisUserMoves, playgrid) {
         } else {
             bestPlay = concatenateArraysWithoutRepeats(selfBestPlay, bestPlayAgainst)
         }
-        console.log("concat bestPlay = ", bestPlay)
+        // console.log("concat bestPlay = ", bestPlay)
 
         let bestPlayPlayed = false
         bestPlay.forEach((bestMove) => {
             if (availMoves.indexOf(bestMove) != -1) {
-                console.log("bestplay against user with best move = ", bestMove)
-                console.log("and best play = ", bestPlay)
-                console.log("where oppmoves = ", oppmoves)
-                console.log("where thisusermoves = ", thisUserMoves)
+                // console.log("bestplay against user with best move = ", bestMove)
+                // console.log("and best play = ", bestPlay)
+                // console.log("where oppmoves = ", oppmoves)
+                // console.log("where thisusermoves = ", thisUserMoves)
                 if (!bestPlayPlayed) {
                     clickToPlay(bestMove - 1, playgrid)
                 }
@@ -91,7 +91,7 @@ export function compPlay(oppmoves, thisUserMoves, playgrid) {
             }
         })
         if (!bestPlayPlayed) {
-            console.log("not bestPlayed")
+            // console.log("not bestPlayed")
             bestPlay = checkTriad(thisUserMoves, availMoves)
             let bestPlayPlayed = false
             bestPlay.forEach((bestMove) => {
@@ -101,7 +101,7 @@ export function compPlay(oppmoves, thisUserMoves, playgrid) {
                     return
                 }
             })
-            console.log("playedrandom")
+            // console.log("playedrandom")
             clickToPlay(availMoves[getRandomIndexFromArray(availMoves)] - 1, playgrid)
             return
         }

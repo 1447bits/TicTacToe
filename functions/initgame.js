@@ -10,6 +10,8 @@ export function GameInit(playgrid, singleplayer) {
     let turn = true
     let player1Color = "#89d1ff"
     let player2Color = "#ffc960"
+    let classX = "placeX"
+    let classO = "placeO"
     let user1moves = []
     let user2moves = []
     let playeerTurnTxtColor = "#d9effd"
@@ -27,16 +29,21 @@ export function GameInit(playgrid, singleplayer) {
             if (e.dataset.played == 0) {
                 e.dataset.played = 1
                 if (turn) {
-                    e.style.background = player1Color
+                    e.classList.add(classX)
                     user1moves.push(parseInt(e.dataset.id))
-                    P2txt.style.background = playeerTurnTxtColor
-                    P1txt.style.background = "transparent"
+                    P2txt.classList.toggle("Player-turn")
+                    P1txt.classList.toggle("Player-turn")
 
-                    if (ifwin(user1moves, player1Color, user2moves, 1, playgrid, u1wins, u2wins)) {
+                    if (ifwin(user1moves, user2moves, 1, playgrid)) {
                         user1moves.length = 0
                         user2moves.length = 0
                         u1wins++
-                        singleplayer ? turn = false : turn = turn;
+                        if (singleplayer) {
+                            turn = false
+                            P2txt.classList.remove("Player-turn")
+                            P1txt.classList.remove("Player-turn")
+                            P1txt.classList.add("Player-turn")
+                        }
                     }
                     else if (singleplayer) {
                         disableClick(playgrid)
@@ -46,16 +53,21 @@ export function GameInit(playgrid, singleplayer) {
                     }
                     turn = !turn
                 } else {
-                    e.style.background = player2Color
+                    e.classList.add(classO)
                     user2moves.push(parseInt(e.dataset.id))
-                    P1txt.style.background = playeerTurnTxtColor
-                    P2txt.style.background = "transparent"
+                    P2txt.classList.toggle("Player-turn")
+                    P1txt.classList.toggle("Player-turn")
 
-                    if (ifwin(user2moves, player2Color, user1moves, 2, playgrid, u1wins, u2wins)) {
+                    if (ifwin(user2moves, user1moves, 2, playgrid)) {
                         user1moves.length = 0
                         user2moves.length = 0
                         u2wins++
-                        singleplayer ? turn = false : turn = turn;
+                        if (singleplayer) {
+                            turn = false
+                            P2txt.classList.remove("Player-turn")
+                            P1txt.classList.remove("Player-turn")
+                            P1txt.classList.add("Player-turn")
+                        }
                     }
                     turn = !turn
                 }
